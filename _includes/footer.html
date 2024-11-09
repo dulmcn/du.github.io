@@ -49,9 +49,9 @@
   <p id="runtime">
      {{}}
   </p>
+     <span id="runtime_span"></span>
 	    <script type="text/javascript">
 	      var time = document.getElementById('runtime');
-        var newSpan = document.createElement('span');
         function show_runtime() {
 	        window.setTimeout("show_runtime()", 1000);
 	        X = new Date("2024/01/01 17:00:00"); // 网站开始运行的日期和时间
@@ -65,10 +65,10 @@
 	        c = (b - B) * 60; // 总分钟数
 	        C = Math.floor((b - B) * 60); // 总分钟数的整数部分
 	        D = Math.floor((c - C) * 60); // 总秒数
-	        newSpan.innerHTML = "⏱️勉强运行 <span class='runtime'>" + A + "天" + B + "小时" + C + "分" + D + "秒</span>";
+	        runtime_span.innerHTML = "⏱️勉强运行 <span class='runtime'>" + A + "天" + B + "小时" + C + "分" + D + "秒</span>";
 	    }
 	    show_runtime();
         // 将新元素添加到 <p> 标签中
-      time.appendChild(newSpan);
+      time.appendChild(runtime_span);
 </script>
 </footer>
