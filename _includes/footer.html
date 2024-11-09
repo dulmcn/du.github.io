@@ -46,24 +46,40 @@
 
     {{ site.data.locales[include.lang].meta | replace: ':PLATFORM', _platform | replace: ':THEME', _theme }}
   </p>
-	    <span id="runtime_span"></span>
-	    <script type="text/javascript">
-	    function show_runtime() {
-	        window.setTimeout("show_runtime()", 1000);
-	        X = new Date("2024/01/01 17:00:00"); // 网站开始运行的日期和时间
-	        Y = new Date(); // 当前日期和时间
-	        T = (Y.getTime() - X.getTime()); // 网站运行的总毫秒数
-	        M = 24 * 60 * 60 * 1000; // 一天的毫秒数
-	        a = T / M; // 总天数
-	        A = Math.floor(a); // 总天数的整数部分
-	        b = (a - A) * 24; // 总小时数
-	        B = Math.floor(b); // 总小时数的整数部分
-	        c = (b - B) * 60; // 总分钟数
-	        C = Math.floor((b - B) * 60); // 总分钟数的整数部分
-	        D = Math.floor((c - C) * 60); // 总秒数
-	        runtime_span.innerHTML = "⏱️勉强运行 <span class='runtime'>" + A + "天" + B + "小时" + C + "分" + D + "秒</span>";
-	    }
-	    show_runtime();
-	    </script> 
+<span id="runtime_span"></span>
+<script type="text/javascript">
+  function show_runtime() {
+    // 清除之前的定时器
+    clearTimeout(window.runtimeTimeout);
+    // 网站开始运行的日期和时间
+    var X = new Date("2024/01/01 17:00:00");
+    // 当前日期和时间
+    var Y = new Date();
+    // 网站运行的总毫秒数
+    var T = Y.getTime() - X.getTime();
+    // 一天的毫秒数
+    var M = 24 * 60 * 60 * 1000;
+    // 总天数
+    var a = T / M;
+    // 总天数的整数部分
+    var A = Math.floor(a);
+    // 总小时数
+    var b = (a - A) * 24;
+    // 总小时数的整数部分
+    var B = Math.floor(b);
+    // 总分钟数
+    var c = (b - B) * 60;
+    // 总分钟数的整数部分
+    var C = Math.floor(c);
+    // 总秒数
+    var D = Math.floor((c - C) * 60);
+    // 更新页面元素
+    document.getElementById("runtime_span").innerHTML = "⏱️勉强运行 <span class='runtime'>" + A + "天" + B + "小时" + C + "分" + D + "秒</span>";
+    // 每秒更新时间
+    window.runtimeTimeout = setTimeout(show_runtime, 1000);
+  }
+  // 初始化显示
+  show_runtime();
+</script>
 
 </footer>
