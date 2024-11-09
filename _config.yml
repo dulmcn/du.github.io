@@ -223,3 +223,8 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+inject:     
+  - <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script> # jQuery  
+	- <script async data-pjax src="/_javascript/txmap.js"></script> # 腾讯位置API
+
