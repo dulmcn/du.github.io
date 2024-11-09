@@ -1,1 +1,1 @@
-This is my blog, just recording the learning process!
+This is my blog , just recording the process of learning !
