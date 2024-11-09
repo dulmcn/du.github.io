@@ -47,7 +47,6 @@
     {{ site.data.locales[include.lang].meta | replace: ':PLATFORM', _platform | replace: ':THEME', _theme }}
   </p>
   <p id="runtime">
-    {{- site.data.locales[include.lang].runtime | replace: ':day', A | replace: ':hour', B | replace: ':min', C | replace: ':sec', D }}
   </p>
 	    <script type="text/javascript">
 	      var time = document.getElementById('runtime');
