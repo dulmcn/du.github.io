@@ -1,0 +1,12 @@
+welcomeloc:
+  layout: markdown
+  title: '🎉 抓到你啦'
+  linklist:
+    columns: 1
+    items:
+      - icon: '<img src="https://api.iconify.design/ion:dice-outline.svg"/>'
+        title: 随机文章
+        url: 'javascript:toRandomPost()'
+  content: |
+    <span id="welcome-info" style="font-family: LXGW WenKai Screen;"></span>
+
