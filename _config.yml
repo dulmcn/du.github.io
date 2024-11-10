@@ -214,8 +214,7 @@ exclude:
   - LICENSE
   - "*.config.js"
   - package*.json
-  - <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script>  
-
+  
 jekyll-archives:
   enabled: [categories, tags]
   layouts:
