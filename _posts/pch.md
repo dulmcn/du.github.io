@@ -1,3 +1,47 @@
-##什么是PCH
-##PCH怎么用
-##一个例子
+## 什么是PCH    
+PCH文件，全称Precompiled Header文件，即预编译头文件，是一种在C/C++程序编译过程中使用的技术，用于提高编译速度和减少编译时间。预编译头文件通常包含程序中多个源文件共有的头文件，通过预先编译这些头文件，可以在后续的编译过程中直接使用，避免重复编译，从而提高编译效率。
+## PCH怎么用   
+- 1）、创建预编译头文件：<br>
+  通常，会选择项目中使用频率高且变化不大的头文件作为预编译头文件，比如：myheader.h，在这个头文件中，可以包含所有其他源文件中会用到的公共头文件。
+- 2）、编译预编译头文件：<br>
+  命令如下：
+  ``` g++/clang  -c -x c++-header -o mypch.pch myheader.h ```
+  (简单的头文件预编译，hip的头文件预编译编译选项要更复杂)
+- 3）、使用预编译头文件：<br>
+  使用如下命令：
+  ``` clang -c  -include-pch  myheader.pch -o test.o test.cpp ```
+  其中，通过```-include-pch```使用预先编译好的myheader.pch，注意一定不要包含预编译中的头文件，会报重定义的错（见下文的验证hip程序使用pch的内容）。
+## hip程序使用pch   
+参考来源：[hip_embed_pch.sh](https://github.com/ROCm/clr/blob/a27c627731786179f93e55423f179e2609c56118/hipamd/src/hip_embed_pch.sh#L102)   
+具体的过程以及命令如下：   
+```    
+clang -O3 --hip-path=$HIP_PATH --offload-arch= -nogpulib -isystem $HIP_PATH/include --cuda-device-only -x hip ./hip_pch.h -E >hip_pch.cui
+```    
+```    
+cat ./hip_macros.h >> ./hip_pch.cui   //将一些宏定义写入预处理后的hip_pch.cui文件中
+```    
+```     
+clang -cc1 -O3 -emit-pch -triple amdgcn-amd-amdhsa -aux-triple x86_64-unknown-linux-gnu -fcuda-is-device -target-cpu  -fgnuc-version=4.2.1 -o ./hip.pch -x hip-cpp-output - <./hip_pch.cui
+```
+这是预编译头文件的内容：
+![image](https://github.com/user-attachments/assets/57e94ce7-3f2e-4c7b-bfd1-4f5d094498c9)   
+注释掉源文件中的头文件：   
+![image](https://github.com/user-attachments/assets/7701888c-63f9-4103-837c-48c3b3ac87e0)   
+按照上述pch编译命令，完成编译后并使用```-include-pch```将编译后的pch文件添加到源文件的编译过程中。但是编译过程中报以下错误：   
+![image](https://github.com/user-attachments/assets/ca055f3f-523c-4148-9748-b7b4c03d0e91)    
+需要添加编译选项```-fno-validate-pch```，忽略掉对pch文件的验证。然后继续编译，又报重定义的错误：   
+![image](https://github.com/user-attachments/assets/1ddaf3f1-7114-4c95-8d33-e9ee881732de)    
+这是因为预编译的头文件中已经包含了cstdio的头文件，所以需要在源文件中将头文件注释掉：    
+![image](https://github.com/user-attachments/assets/918837e9-0358-41d0-9645-0f976515a4af)     
+至此编译成功，使用pch前，编译过程的火焰图如下图所示：    
+![image](https://github.com/user-attachments/assets/d256a43b-bd86-45f6-8e82-c46eebad88d6)    
+使用后，如下图所示：    
+![image](https://github.com/user-attachments/assets/e10c4cf2-2766-4893-a159-5935fa99869c)   
+能够看到耗时明显降低。
+
+
+
+
+
+
+
