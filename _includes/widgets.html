@@ -1,3 +1,7 @@
+<p id="hitokoto"> :D 获取中... </p> 
+<script> fetch('https://v1.hitokoto.cn') .then(response => response.json()) .then(data => { const hitokoto = document.querySelector('#hitokoto_text') hitokoto.href = `https://hitokoto.cn/?uuid=${data.uuid}` hitokoto.innerText = data.hitokoto }) .catch(console.error) </script>
+
+
 <section id="access-map">
 <span id="welcome-info" style="font-family: 'LXGW WenKai Screen', sans-serif;"></span>
 </section> 
