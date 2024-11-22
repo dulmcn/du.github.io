@@ -35,7 +35,33 @@ layout: compress
           <!-- panel -->
           <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
             <div class="access">
-              {% include_cached widgets.html lang=lang %}
+    <p id="hitokoto-container">加载中...</p>
+<script>
+        fetch('https://international.v1.hitokoto.cn/')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const container = document.getElementById('hitokoto-container');
+            container.innerHTML = ''; 
+
+            const info = `
+                <p><strong></strong> ${data.hitokoto}</p>
+                <p><strong>来源:</strong> ${data.from}</p>
+                <p><strong>作者:</strong> ${data.from_who}</p>
+            `;
+
+            container.innerHTML = info; 
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            document.getElementById('hitokoto-container').innerHTML = '<p>获取失败</p>';
+        });
+</script>
+<!--               {% include_cached widgets.html lang=lang %} -->
               {% include_cached update-list.html lang=lang %}
               {% include_cached trending-tags.html lang=lang %}
             </div>
