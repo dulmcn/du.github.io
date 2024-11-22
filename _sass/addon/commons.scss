@@ -1524,3 +1524,25 @@ search {
     }
   }
 } /* min-width: 1650px */
+
+.refresh-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #4CAF50;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.refresh-button:hover {
+  color: #45a049;
+}
+
+.refresh-icon::before {
+  content: '🔄';
+  margin-right: 5px;
+}
+  
+
