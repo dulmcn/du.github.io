@@ -1,5 +1,5 @@
 <div id="hitokoto-container">
-        <p>加载中...</p>
+    <p>加载中...</p>
 </div>
 <script>
         fetch('https://international.v1.hitokoto.cn/')
@@ -14,16 +14,16 @@
             container.innerHTML = ''; 
 
             const info = `
-                <p class="info"><strong></strong> ${data.hitokoto}</p>
-                <p class="info"><strong>来源:</strong> ${data.from}</p>
-                <p class="info"><strong>作者:</strong> ${data.from_who}</p>
+                <p><strong></strong> ${data.hitokoto}</p>
+                <p><strong>来源:</strong> ${data.from}</p>
+                <p><strong>作者:</strong> ${data.from_who}</p>
             `;
 
             container.innerHTML = info; 
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
-            document.getElementById('hitokoto-container').innerHTML = '<p class="info">获取失败</p>';
+            document.getElementById('hitokoto-container').innerHTML = '<p>获取失败</p>';
         });
 </script>
 
