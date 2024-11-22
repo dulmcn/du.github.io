@@ -51,11 +51,9 @@ layout: compress
           </main>
 
           <!-- panel -->
-          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
-         
-<div id="hitokoto-container">
-    <p>加载中...</p>
-</div>
+          <div id="hitokoto-container">
+           <p>加载中...</p>
+         </div>
 <button class="refresh-button" onclick="fetchHitokoto()">
         <span class="refresh-icon"></span>刷新一下
 </button>
@@ -87,8 +85,9 @@ layout: compress
         }
         fetchHitokoto();
 </script>
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
             <div class="access">
-<!--               {% include_cached widgets.html lang=lang %}  -->
+              {% include_cached widgets.html lang=lang %} 
               {% include_cached update-list.html lang=lang %}
               {% include_cached trending-tags.html lang=lang %}
             </div>
