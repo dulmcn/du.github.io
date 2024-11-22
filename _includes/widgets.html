@@ -1,31 +1,56 @@
-<!-- <div id="hitokoto-container">
+<style>
+        .refresh-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #4CAF50;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .refresh-button:hover {
+            color: #45a049;
+        }
+        .refresh-icon::before {
+            content: '🔄'; 
+            margin-right: 5px;
+        }
+</style>
+<div id="hitokoto-container">
     <p>加载中...</p>
 </div>
+<button class="refresh-button" onclick="fetchHitokoto()">
+        <span class="refresh-icon"></span>刷新一下
+</button>
 <script>
-        fetch('https://international.v1.hitokoto.cn/')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const container = document.getElementById('hitokoto-container');
-            container.innerHTML = ''; 
+        function fetchHitokoto() {
+            fetch('https://international.v1.hitokoto.cn/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const container = document.getElementById('hitokoto-container');
+                container.innerHTML = '';
 
-            const info = `
-                <p><strong></strong> ${data.hitokoto}</p>
-                <p><strong>来源:</strong> ${data.from}</p>
-                <p><strong>作者:</strong> ${data.from_who}</p>
-            `;
+                const info = `
+                    <p><strong></strong> ${data.hitokoto}</p>
+                    <p><strong>来源:</strong> ${data.from}</p>
+                    <p><strong>作者:</strong> ${data.from_who}</p>
+                `;
 
-            container.innerHTML = info; 
-        })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
-            document.getElementById('hitokoto-container').innerHTML = '<p>获取失败</p>';
-        });
-</script> -->
+                container.innerHTML = info; 
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                document.getElementById('hitokoto-container').innerHTML = '<p>获取失败</p>';
+            });
+        }
+        fetchHitokoto();
+</script>
 
 <section id="access-map">
 <span id="welcome-info" style="font-family: 'LXGW WenKai Screen', sans-serif;"></span>
