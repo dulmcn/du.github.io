@@ -74,31 +74,4 @@
 <p>
   浏览量：<span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span>👀 | 访客数：<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>👦
 </p>
-  <p id="hitokoto-container">
-</p>
-  <span id="hitokoto_span"></span>
-<button class="refresh-button" onclick="fetchHitokoto()">
-        <span class="refresh-icon"></span>刷新一下
-</button>
-<script type="text/javascript">
-        var hitokot = document.getElementById('hitokoto-container');
-        function fetchHitokoto() {
-            fetch('https://international.v1.hitokoto.cn/')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                 hitokoto_span.innerHTML =`<p>${data.hitokoto} --${data.from}·${data.from_who}</p>`;
-            })
-            .catch(error => {
-                console.error('There has been a problem with your fetch operation:', error);
-                document.getElementById('hitokoto-container').innerHTML = '<p>获取失败</p>';
-            });
-        }
-        fetchHitokoto();
-        hitokoto.appendChild(hitokoto_span);
-</script>
 </footer>
